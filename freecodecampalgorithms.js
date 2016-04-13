@@ -239,3 +239,141 @@ function unite(arr1, arr2, arr3) {
   }
   return res;
 }
+function convert(str) {
+  var val = str.split("");
+  for(var i = 0; i < val.length; i++){
+  	if(val[i] == "&"){
+  		val[i] = "&amp";
+  	}else if(val[i] == "<"){
+  		val[i] = "&lt";
+  	}else if(val[i] == ">"){
+  		val[i] = "&gt";
+  	}else if(val[i] == "\""){
+  		val[i] = "&quot;";
+  	}else if(val[i] == "\'"){
+  		val[i] = "&apos;";
+  	}
+  }
+  var res = val.join("");
+  return res;
+}
+function spinalCase(str) {
+	str = str.replace(/_/g, "");
+	var val = str.toLowerCase().split(" ");
+	var holder = [], holder2, res;
+	function replacer(match){
+		return "-"+match.toLowerCase();
+	}
+	for(var i = 0; i < val.length; i++){
+		if(val.length <= 1){
+		 	res = str.replace(/[A-Z]/g, replacer);
+		 	var test = res.split("");
+		 	if(test[0] == "-"){
+		 		holder2 = res.substr(1);
+		 		return holder2;
+		 	}else{
+		 		return res;
+		 	}
+		}else{
+			holder.push(val[i]);
+			holder.push("-");
+		}
+	}
+	holder.splice(-1, 1);
+	var result = holder.join("");
+	return result;
+}
+// noprotect
+function sumPrimes(num){
+	var res = [], final = 0;
+	function isPrime(val){
+		if(num < 2){
+			return false;
+		}
+		for(var i = 2; i < val; i++){
+			if(val % i === 0){
+				return false;
+			}
+		}return true;
+	}
+	for(var j = 2; j <= num; j++){
+		if(isPrime(j)){
+			res.push(j);
+		}
+	}
+	for(var k = 0; k < res.length; k++){
+		final += res[k];
+	}
+	return final;
+}
+
+function smallestCommons(arr) {
+  arr = arr.sort(), holder = [], count = 0, mother1 = [], mother2 = [], count = 0;
+  for(var i = arr[0]; i <= arr[1]; i++){
+  	holder.push(i);
+  }
+  for(var n = 2; n <= arr[1]; n++){
+  	for(var j = 1; j < 2000000; j++){
+  		mother1.push(n*j);
+  	}
+  }
+  for(var k = 0; k < 2000000; k++){
+  	count = 0;
+  	for(var m = 0; m <= holder.length; m++){
+  		if(mother1[k] % holder[m] === 0){
+  			count++;
+  		}
+  	}
+  	if(count === holder.length){
+  			mother2.push(mother1[k]);
+  		}
+  }
+  return mother2[0];
+}
+
+function find(arr, func) {
+  var value = arr.filter(func);
+  return value[0];
+}
+function drop(arr, func) {
+ 	var count = arr.length;
+ 	for(var i = 0; i < count; i++){
+ 		if(func(arr[0])){
+ 			break;
+ 		}else{
+ 			arr.shift();
+ 		}
+ 	}
+ 	return arr;
+}
+function steamroller(arr) {
+	var res = [], val = [];
+	function each(val){ 
+		if(!Array.isArray(val)){
+			res.push(val);
+		}else if(Array.isArray(val)){
+			for(var i = 0; i < val.length; i++){
+				res.push(val[i]);
+				each(val[i]);
+			}
+			
+		}else{
+			//return res;
+		}
+	}
+	arr.forEach(each);
+	for(var j = 0; j < res.length; j++){
+		if(!Array.isArray(res[j]) && val.indexOf(res[j]) === -1){
+			val.push(res[j]);
+		}
+	}
+	return val;
+}
+function binaryAgent(str) {
+  var val = str.split(" "), res = [];
+  for(var i = 0; i < val.length; i++){
+  	res.push(String.fromCharCode(parseInt(val[i], 2)));
+  }
+ res = res.join("");
+ return res;
+}
